@@ -1,7 +1,8 @@
 # starter-snake-python
 
-a collaborative effort. dont take to seriosuly
-
+- a collaborative effort. dont take to seriosuly
+- see wiki for a break down of some of the code
+- see patch notes for current status
 
 
 
