@@ -3,6 +3,7 @@ import os
 import random
 import bottle
 
+
 from app.api import ping_response, start_response, move_response, end_response
 from app.logic import *
 
@@ -19,7 +20,6 @@ def static(path):
     """
     Given a path, return the static file located relative
     to the static folder.
-
     This can be used to return the snake head URL in an API response.
     """
     return bottle.static_file(path, root='static/')
@@ -45,32 +45,56 @@ def start():
     """
     print(json.dumps(data))
 
-    color = "#00FF00"
+    color = "#0398fc"
+    headType = "pixel"
+    tailType = "pixel"
 
-    return start_response(color)
+    return start_response(color,headType,tailType)
 
 
 @bottle.post('/move')
 def move():
     data = bottle.request.json
-
-    """
-    TODO: Using the data from the endpoint request object, your
-            snake AI must choose a direction to move in.
-    """
-    print(json.dumps(data))
-
     directions = ['up', 'down', 'left', 'right']
-
+    move_data = -1
     board = GameBoard(data=data)
     head = data["you"]["body"][0]
 
-    # when health < 50 go for food
-    direction = directions[board.bfs(Point(data=head), 7)]
+
+    print("turn: ",data["turn"])
+
+
+    if(move_data==-1):
+        print("trying kill")
+        move_data = board.kill_snakes(data)
+
+    # returns -1 if he is trapped (no food)
+    if(move_data==-1):
+        print("trying food")
+        move_data = board.bfs(Point(data=head), 7) # go for your Food
+
+    if(move_data==-1):
+        print("trying my tail")
+        move_data = board.bfs(Point(data=head), 6) # go for your tail
+
+    # last resort option
+    if(move_data==-1):
+        print("trying enemy tail")
+        move_data = board.bfs(Point(data=head), 3) # go for enemy tail
+
+    if(move_data==-1):
+        print("trying empty space")
+        move_data = board.bfs(Point(data=head), 0,False) # go for empty spaces
+
+    if(move_data==-1):
+        print("trying empty space v2")
+        move_data = board.bfs(Point(data=head), 0,False,False) # go for empty spaces
+
+    direction = directions[move_data]
+
     print("Direction: ", direction)
 
     return move_response(direction)
-
 
 @bottle.post('/end')
 def end():
