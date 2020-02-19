@@ -1,6 +1,6 @@
+**Beta 1.00**
 
-
--New Functions
+**New Functions**
 
 safety_protocol - returns false if the tile is dangerous (beside an opponent snake head), if safe then returns true
 
@@ -12,7 +12,7 @@ Storage - stores a the id and size of opponent snakes into Storage_dict, id:size
 
 kill_snakes - Will target the head of opponent snakes if skippy is bigger by 1, e.g skippy:16 opponent:15 it will execute while skippy:15 opponent:15, skippy will go for food(or the next request)
 
--Fixes
+**Fixes**
 
 bfs - now returns -1 if queue becomes empty (exists the loop)
 
@@ -28,7 +28,7 @@ kill_snakes - skippy will keep on hunting enenmy head until he starves or until 
 
 Should have gone for the green tail https://play.battlesnake.com/g/c00d8640-432a-41a4-a4c2-5ed594af1967/#
 
-Coding Issue
+**Coding Issue**
 
 Everytime I want to access the value of the tile, I need to check if it is a list, something better should replace this
 
