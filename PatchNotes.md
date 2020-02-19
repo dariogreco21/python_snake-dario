@@ -16,7 +16,7 @@ kill_snakes - Will target the head of opponent snakes if skippy is bigger by 1, 
 
 bfs - now returns -1 if queue becomes empty (exists the loop)
 
--Replay and Bugs
+**Replay and Bugs**
 
 I wanted skippy to go down and not the food, not sure why safety_protocol was not working (needs implementing) https://play.battlesnake.com/g/6703ff00-9268-4c71-803f-febaed464385/#
 
